@@ -1,0 +1,17 @@
+<h1>Bloggers Show</h1>
+
+<p><%= @blogger.name %></p>
+<p><%= @blogger.age %></p>
+<p><%= @blogger.bio %></p>
+
+
+<p>Total likes : <%= @blogger.total_likes %></p>
+<p>Featured Posts : <%=link_to @blogger.featured_post.title, post_path(@blogger.featured_post) %></p>
+
+
+Top 5 Destinations: 
+<ul>
+    <% @blogger.top_5_destinations.each do |destination| %>
+    <li><%= destination[0]%></li>
+    <%end%>
+    </ul>
