@@ -6,6 +6,9 @@ class PostsController < ApplicationController
   end
 
   def new
+    if flash[:errors]
+      @post.update(flash[:params])
+    end
   end
 
   def update
@@ -17,10 +20,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    if flash[:errors]
-      @post.update(flash[:params])
-    end
-  
+    
   end
 
   def update
@@ -36,6 +36,15 @@ class PostsController < ApplicationController
 
   
   def create
+    byebug
+    @post.update(post_params)
+    if @post.valid?
+      redirect_to post_path(@post)
+    else
+      flash[:errors] = @post.errors.full_messages
+      flash[:params] = post_params
+      redirect_to new_post_path
+    end
   end
 
   private
@@ -49,7 +58,7 @@ class PostsController < ApplicationController
 
 
   def post_params
-    params.require(:post).permit(:title, :content, :likes, :blogger, :destination, :likes)
+    params.require(:post).permit(:title, :content, :likes, :blogger_id, :destination_id, :likes)
   end
 
   

@@ -1,6 +1,6 @@
+    <% if flash[:errors] %>
 <h3>You have the following errors</h3>
 <ul>
-    <% if flash[:errors] %>
         <% flash[:errors].each do |msg| %>
             <li><%= msg %></li>
         <% end %>
