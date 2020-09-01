@@ -1,3 +1,12 @@
+    <% if flash[:errors] %>
+<h3>You have the following errors</h3>
+<ul>
+        <% flash[:errors].each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+    <% end %>
+</ul>
+
 <%= form_for @blogger do |f| %>
 <div>
     <%= f.label :name %>
