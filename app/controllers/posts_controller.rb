@@ -1,19 +1,17 @@
 class PostsController < ApplicationController
-  before_action :find_post, only: [:edit,:destroy]
+  before_action :find_post, only: [:edit,:destroy, :update, :show]
   before_action :new_post, only: [:new, :create]
   def show
-    @post = Post.find(params[:id])    
-     if params[:post] == "liked"
-      
-        updated_likes = @post.likes + 1
-        @post.update("likes" => updated_likes)
-      end
+    
   end
 
   def new
   end
 
-
+  def update
+    @post.update(post_params)
+    redirect_to post_path(@post)
+  end
 
   def index
   end
@@ -33,12 +31,9 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
-  def like_params
-    params.require(:post).permit(:liked)
-  end
 
   def post_params
-    params.require(:post).permit(:title, :content, :likes, :blogger, :destination)
+    params.require(:post).permit(:title, :content, :likes, :blogger, :destination, :likes)
   end
 
   
